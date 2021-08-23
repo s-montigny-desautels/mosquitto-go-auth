@@ -238,6 +238,10 @@ func (o *remoteJWTChecker) jwtRequest(host, uri, token string, dataMap map[strin
 			return false, err
 		}
 
+		if bytes.Equal(dataJSON, []byte("null")) {
+			dataJSON = []byte("")
+		}
+
 		contentReader := bytes.NewReader(dataJSON)
 		req, err = h.NewRequest("POST", fullURI, contentReader)
 
